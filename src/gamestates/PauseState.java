@@ -16,8 +16,8 @@ public class PauseState extends GameState {
 	private Background bg;
 	
 	/*
-	 * a pause menu that made no purpose in the game since it could only restart the game
-	 * which could be accessed by pressing 'P' while the game had started
+	 * a pause menu that can be accessed by pressing 'p' and has options of restarting, back to menu and quit
+	 * 
 	 */
 	public PauseState(GameStateManager gsm){
 		this.gsm = gsm;

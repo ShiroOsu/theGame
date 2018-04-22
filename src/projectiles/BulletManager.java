@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import audio.GameAudio;
+import entities.Player;
 import main.*;
 
 public class BulletManager {
@@ -26,6 +27,10 @@ public class BulletManager {
 		this.image = image;
 	}
 	
+	public BufferedImage getImage() {
+		return image;
+	}
+	
 	public void render(Graphics g){
 		/*
 		 * draw the projectiles from the middle of the player
@@ -40,6 +45,9 @@ public class BulletManager {
 		return bullets.size();
 	}
 	
+	/*
+	 * return a pointer of the bullet array
+	 */
 	public ArrayList<Bullet> getBulletArray(){
 		return bullets;
 	}
@@ -53,7 +61,9 @@ public class BulletManager {
 	}
 	
 	
-
+	/*
+	 * update the bullets
+	 */
 	public void update(){
 		if(player.isFiring()){
 			bullets.add(new Bullet((int)player.getX(), (int)player.getY()));

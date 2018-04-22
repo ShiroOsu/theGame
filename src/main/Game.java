@@ -18,6 +18,8 @@ import gamestates.GameStateManager;
  */
 @SuppressWarnings("serial")
 public class Game extends Canvas implements KeyListener {
+	
+	//fields 
 
 	private JFrame frame;
 	private GameStateManager gsm;
@@ -45,6 +47,9 @@ public class Game extends Canvas implements KeyListener {
 		loop();
 	}
 
+	/**
+	 * game loop
+	 */
 	private void loop(){
 		int frames = 0, ticks = 0;
 		long lastTime = System.nanoTime();
@@ -52,12 +57,8 @@ public class Game extends Canvas implements KeyListener {
 		long timer = System.currentTimeMillis();
 
 		createBufferStrategy(3);
-
 		requestFocus();
-
-
-
-		//game loop
+		
 		while(true){
 
 
@@ -69,20 +70,15 @@ public class Game extends Canvas implements KeyListener {
 				ticks++;
 				update();
 			}
-
-
+			
 			frames++;
 			render();
-
-
 
 			try{
 				Thread.sleep(5);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-
-
 
 			if(System.currentTimeMillis() - timer >= 1000){
 				ticks = frames = 0;

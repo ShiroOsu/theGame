@@ -10,6 +10,7 @@ import backgrounds.Background;
 
 public class Hud {
 	
+	//fields
 	private Background bg;
 	private BufferedImage playerIcon;
 	private double x, y;

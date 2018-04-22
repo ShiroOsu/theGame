@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 import main.*;
 
 public class Background {
+	
+	//fields
 	private double x, y;
 
 	private BufferedImage image;

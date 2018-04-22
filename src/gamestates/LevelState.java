@@ -11,6 +11,10 @@ import javax.imageio.ImageIO;
 
 import audio.GameAudio;
 import backgrounds.Background;
+import entities.Enemy;
+import entities.Entity;
+import entities.LivingBackground;
+import entities.Player;
 import hud.Hud;
 import main.*;
 import projectiles.*;
@@ -33,6 +37,8 @@ public class LevelState extends GameState {
 	private int health = 100;
 	private long t;
 	private GameAudio gaKilled, gaOut, gaExit;
+
+	private LivingBackground livingBG;
 
 	public LevelState(GameStateManager gsm){
 		this.gsm = gsm;
@@ -79,11 +85,14 @@ public class LevelState extends GameState {
 		gaExit = new GameAudio("src/audiofiles/GameOver.wav");
 
 		t = 0;
+
+		livingBG = new LivingBackground(.8, 10);
 		
 	}
 
 	@Override
 	public void update() {
+		livingBG.update();
 		bullets = bulletmanager.getBulletArray();
 
 		bg.update();
@@ -171,26 +180,26 @@ public class LevelState extends GameState {
 		 * different type of enemies set on different intervals 
 		 */
 		
-		if(t % 180 == 179){
+		if(t % (60 * 2) == ((60 * 2) - 1)){
 			addEnemy((int)(Math.random()*(Game.WIDTH - 80)), -100, 80, 60, 3);
 			setEnemyCount(1);
 			
 		}
 		
-		if(t % (60 * 10) == (60*10)-1){
-			addEnemy((int)(Math.random()*(Game.WIDTH - 80)), -100, 100, 70, 4);
+		if(t % (60 * 10) == ((60 * 10) - 1)){
+			addEnemy((int)(Math.random()*(Game.WIDTH - 80)), -100, 100, 70, 2);
 			setEnemyCount(1);
 			
 		}
 		
-		if(t % (60 * 20) == (60*20)-1){
-			addEnemy((int)(Math.random()*(Game.WIDTH - 80)), -50, 50, 70, 2);
+		if(t % (60 * 20) == (60 * 20) - 1){
+			addEnemy((int)(Math.random()*(Game.WIDTH - 80)), -50, 50, 70, 1);
 			setEnemyCount(1);
 			
 		}
 		
-		if(t % (60 * 30) == (60*30)-1){
-			addEnemy((int)(Math.random()*(Game.WIDTH - 80)), -100, 150, 100, 4);
+		if(t % (60 * 30) == (60 * 30) - 1){
+			addEnemy((int)(Math.random()*(Game.WIDTH - 80)), -100, 150, 100, 3);
 			setEnemyCount(1);
 		}
 	}
@@ -198,6 +207,7 @@ public class LevelState extends GameState {
 	@Override
 	public void render(Graphics g) {
 		bg.render(g);
+		livingBG.render(g);
 		player.render(g);
 		bulletmanager.render(g);
 
@@ -214,8 +224,6 @@ public class LevelState extends GameState {
 		g.fillRect((int)playerHud.getX() + 104, 677, 492, 18);
 		g.setColor(Color.RED);
 		g.fillRect((int)playerHud.getX() + 104, 677, (int)(492*(health/100.0)), 18);
-		
-		System.out.println();
 	}
 
 	@Override
@@ -238,9 +246,6 @@ public class LevelState extends GameState {
 		
 		if(k == KeyEvent.VK_P){
 			gsm.setState(GameStateManager.PAUSESTATE);
-		}
-		if(k == KeyEvent.VK_T){
-			gsm.setState(GameStateManager.PRESSTATE);
 		}
 	}
 
